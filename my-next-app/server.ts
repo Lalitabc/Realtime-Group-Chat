@@ -6,7 +6,7 @@ import express from 'express';
 
 const app = next({ dev: process.env.NODE_ENV !== 'production' });
 const handle = app.getRequestHandler();
-
+const port = process.env.PORT || 3000;
 app.prepare().then(() => {
   const expressApp = express();
   const server = createServer(expressApp);
@@ -87,9 +87,9 @@ app.prepare().then(() => {
 
   expressApp.all('*', (req, res) => handle(req, res));
 
-  server.listen(3000, (err?: any) => {
+  server.listen(port, (err?: any) => {
     if (err) throw err;
-    console.log('> Ready on http://localhost:3000');
+    console.log(`> Ready on http://localhost:${port}`);
   });
 });
 
